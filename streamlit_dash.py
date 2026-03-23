@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-
 st.set_page_config(layout="wide")
 st.markdown("""
 <style>
@@ -47,7 +46,6 @@ if file:
     st.divider()
 
     # ========= ROW 2 =========
-    
 
     # Platform Filter
     platforms = st.multiselect("Platform", df["Platform"].unique(),
@@ -55,6 +53,7 @@ if file:
     df = df[df["Platform"].isin(platforms)]
 
     c2,c3,c4 = st.columns([2,2,2])
+
     # Revenue by Platform
     plat = df.groupby("Platform")["Revenue"].sum().reset_index()
     fig1 = px.bar(plat, x="Platform", y="Revenue", title="Revenue by Platform")
@@ -78,6 +77,7 @@ if file:
     st.divider()
 
     # ========= ROW 3 =========
+
     r1,r2,r3 = st.columns(3)
 
     # Campaign Revenue
@@ -97,5 +97,3 @@ if file:
     fig5 = px.line(conv_month, x="Date", y="Conversions",
                    title="Total Conversions by Month")
     r3.plotly_chart(fig5, use_container_width=True)
-
-  
