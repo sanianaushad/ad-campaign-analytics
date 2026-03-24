@@ -40,10 +40,23 @@ col3.metric("Avg ROAS", f"{avg_roas:.2f}")
 
 st.divider()
 
+# ---------------- CONFIDENCE DISPLAY ----------------
+if accuracy_df is not None and "Confidence (%)" in accuracy_df.columns:
+    st.subheader("Model Confidence")
+
+    avg_conf = accuracy_df["Confidence (%)"].mean()
+
+    st.progress(avg_conf / 100)
+    st.write(f"Avg Confidence: {avg_conf:.2f}%")
+
+st.divider()
+
 # ---------------- ACCURACY ----------------
 if accuracy_df is not None:
     st.subheader("Model Accuracy")
     st.dataframe(accuracy_df)
+
+st.divider()
 
 # ---------------- GRAPHS ----------------
 st.subheader("Trends")

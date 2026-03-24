@@ -85,11 +85,14 @@ def run_forecast_pipeline(df):
         rmse = np.sqrt(mean_squared_error(y_test, y_pred))
         mape = np.mean(np.abs((y_test - y_pred) / (y_test + 1))) * 100
 
+        confidence = max(0, 100 - mape)
+
         accuracy_list.append({
             "Platform": platform,
             "MAE": round(mae, 2),
             "RMSE": round(rmse, 2),
-            "MAPE (%)": round(mape, 2)
+            "MAPE (%)": round(mape, 2),
+            "Confidence (%)": round(confidence, 2)
         })
 
         # =========================
@@ -141,7 +144,6 @@ def run_forecast_pipeline(df):
     rev_per_conv = df["Revenue"].sum() / df["Conversions"].sum()
     avg_spend = df["Spend"].mean()
 
-    # NO RANDOMNESS
     forecast_df["Conversion_Rate"] = conv_rate
     forecast_df["Revenue_per_Conversion"] = rev_per_conv
     forecast_df["Spend"] = avg_spend
